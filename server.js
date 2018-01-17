@@ -15,9 +15,17 @@ app.use('/', Express.static(path.join(__dirname, './')));
 app.use('/static', Express.static(path.join(__dirname, './static')));
 
 
-app.use('/artists', function (req, res) {
-	request.post({
-		url: 'http://ws.audioscrobbler.com/2.0/?method=library.getartists&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&user=joanofarctan&format=json'
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
+
+app.use('/user/artists/:username*?', function (req, res) {
+	console.log('============', req.params.username, 'http://ws.audioscrobbler.com/2.0/?method=library.getartists&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&user=' + (req.params.username || 'vasya') + '&format=json');
+	request.get({
+		url: 'http://ws.audioscrobbler.com/2.0/?method=library.getartists&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&user=' + (req.params.username || 'vasya') + '&format=json'
 	}, function (error, response, body) {
 		res.send(body);
 	});
