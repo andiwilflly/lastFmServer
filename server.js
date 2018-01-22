@@ -30,6 +30,14 @@ app.use('/user/artists/:username*?', function (req, res) {
 	});
 });
 
+app.use('/artist/:name*?', function (req, res) {
+	request.get({
+		url: "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + (req.params.name || 'vasya') + "&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&format=json"
+	}, function (error, response, body) {
+		res.send(body);
+	});
+});
+
 
 app.get('*', function (req, res) {
 	fs.readFile('./index.html', 'utf8', function (err, file) {
