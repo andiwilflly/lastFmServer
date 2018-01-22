@@ -39,6 +39,7 @@ app.use('/artist/:name*?', function (req, res) {
 });
 
 
+
 app.get('*', function (req, res) {
 	fs.readFile('./index.html', 'utf8', function (err, file) {
 		if (err) {
