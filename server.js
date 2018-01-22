@@ -23,7 +23,6 @@ app.use(function(req, res, next) {
 
 
 app.use('/user/artists/:username*?', function (req, res) {
-	console.log('============', req.params.username, 'http://ws.audioscrobbler.com/2.0/?method=library.getartists&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&user=' + (req.params.username || 'vasya') + '&format=json');
 	request.get({
 		url: 'http://ws.audioscrobbler.com/2.0/?method=library.getartists&api_key=fb9d42de15720bcb20e6ed6fc5016a4c&user=' + (req.params.username || 'vasya') + '&format=json'
 	}, function (error, response, body) {
